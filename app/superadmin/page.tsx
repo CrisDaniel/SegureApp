@@ -15,7 +15,7 @@ interface Message {
   createdAt: string;
 }
 
-const API_URL = "http://localhost:3001/api/v1/messages"; // Cambia esto por tu API real
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api/v1/messages"; // Usa variable de entorno para producción
 
 export default function SuperAdminDashboard() {
   const [messages, setMessages] = useState<Message[]>([]);
