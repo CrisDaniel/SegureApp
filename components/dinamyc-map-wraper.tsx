@@ -22,8 +22,8 @@ interface DynamicMapWrapperProps {
 
 // Importa el componente RealIncidentsMap dinámicamente y SÓLO en el cliente
 // Ahora, el `dynamic` con `ssr: false` está DENTRO de un componente cliente.
-const DynamicRealIncidentsMap = dynamic(() =>
-  import('@/components/real-incident-map').then((mod) => mod.RealIncidentsMap),
+const DynamicMap = dynamic(() =>
+  import('@/components/map').then((mod) => mod.Map),
   {
     ssr: false, // <-- Esto ahora es válido porque está en un componente cliente
     // Opcional: Puedes añadir un componente de carga mientras el mapa se carga
@@ -39,7 +39,7 @@ const DynamicMapWrapper: React.FC<DynamicMapWrapperProps> = ({
 }) => {
   // Renderiza el componente de mapa dinámico, pasándole las props que recibió
   return (
-    <DynamicRealIncidentsMap
+    <DynamicMap
       incidents={incidents}
       initialPosition={initialPosition}
       zoom={zoom}

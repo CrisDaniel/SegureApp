@@ -40,7 +40,7 @@ L.Icon.Default.mergeOptions({
 
 
 // Define el componente funcional, tipando sus props
-export const RealIncidentsMap: React.FC<IncidentsMapProps> = ({
+export const Map: React.FC<IncidentsMapProps> = ({
   incidents = [], // Valor por defecto para si no se pasa incidents
   initialPosition = [-12.046374, -77.042793], // Valor por defecto para la posición
   zoom = 13, // Valor por defecto para el zoom
