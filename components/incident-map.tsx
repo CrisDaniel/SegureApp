@@ -5,6 +5,7 @@ import { MapPin } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import DynamicMapWrapper from "./dinamyc-map-wraper"
 
 // Datos de ejemplo para incidentes
 const MOCK_INCIDENTS = [
@@ -26,6 +27,7 @@ const MOCK_INCIDENTS = [
     time: "Hace 2 horas",
   },
 ]
+const tingoMariaPosition: [number, number] = [-9.2970, -76.0079];
 
 export function IncidentMap() {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null)
@@ -77,7 +79,9 @@ export function IncidentMap() {
         ) : (
           <div className="relative h-[300px] w-full bg-slate-100 rounded-md overflow-hidden">
             {/* Aquí iría la integración real con Mapbox o Google Maps */}
-            <div className="absolute inset-0 bg-[url('/placeholder.svg?height=600&width=800')] bg-cover bg-center opacity-50"></div>
+            <div className="absolute inset-0 bg-[url('/placeholder.svg?height=600&width=800')] bg-cover bg-center opacity-50">
+              <DynamicMapWrapper incidents={MOCK_INCIDENTS} initialPosition={tingoMariaPosition} />
+            </div>
 
             {/* Marcador de usuario */}
             <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
