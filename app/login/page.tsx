@@ -68,7 +68,7 @@ export default function LoginPage() {
   if (status === 'loading' || status === 'authenticated') {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
-        <p>Cargando...</p> {/* O un spinner/componente de carga */}
+        <p>Cargando</p> {/* O un spinner/componente de carga */}
       </div>
     );
   }
