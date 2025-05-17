@@ -7,7 +7,8 @@ export async function POST(request: Request) {
     }
 
     try {
-        const res = await fetch("http://localhost:3001/api/v1/auth/register", {
+        const BACKEND_URL = process.env.EXPRESS_BACKEND_URL || "http://localhost:3001";
+        const res = await fetch(`${BACKEND_URL}/api/v1/auth/register`, {
             method: 'POST',
             body: JSON.stringify({
                 name,
@@ -30,8 +31,7 @@ export async function POST(request: Request) {
         // Asegúrate de que 'data' contiene lo que esperas de tu backend NestJS,
         // especialmente el token (ej. data.accessToken) y los datos del usuario.
         // El objeto que retornas aquí estará disponible en el callback 'jwt' como el parámetro 'user'.
-        console.log(data);
-        return Response.json({message: "User registered successfully"}, { status: 200 });
+        return Response.json(data, { status: 200 });
     } catch (error) {
         console.error("Error in authorize function:", error);
         return Response.json({ error: "Error in authorize function" }, { status: 500 });
