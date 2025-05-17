@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import './globals.css'
+import './globals.css';
+import { NextAuthProvider } from "./providers"; // Ajusta la ruta si es necesario
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
+  title: "SegureApp", // O tu título preferido
+  description: 'Aplicación de seguridad ciudadana',
 }
 
 export default function RootLayout({
@@ -13,8 +13,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="es">
+      <body>
+        <NextAuthProvider>
+          {children}
+        </NextAuthProvider>
+      </body>
     </html>
   )
 }
