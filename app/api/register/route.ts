@@ -7,7 +7,8 @@ export async function POST(request: Request) {
     }
 
     try {
-        const res = await fetch("http://localhost:3001/api/v1/auth/register", {
+        const BACKEND_URL = process.env.EXPRESS_BACKEND_URL || "http://localhost:3001";
+        const res = await fetch(`${BACKEND_URL}/api/v1/auth/register`, {
             method: 'POST',
             body: JSON.stringify({
                 name,
