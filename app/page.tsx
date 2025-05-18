@@ -44,7 +44,7 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2">
           <div className="mb-4">
-            <IncidentMap />
+            <IncidentMap haveTitle={true}/>
             {/* <DynamicMapWrapper incidents={incidents} initialPosition={tingoMariaPosition} /> */}
           </div>
 

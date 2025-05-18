@@ -29,7 +29,7 @@ const MOCK_INCIDENTS = [
 ]
 const tingoMariaPosition: [number, number] = [-9.2970, -76.0079];
 
-export function IncidentMap() {
+export function IncidentMap({haveTitle}: {haveTitle: boolean}) {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null)
   const [loading, setLoading] = useState(true)
   const [selectedIncident, setSelectedIncident] = useState<number | null>(null)
@@ -59,15 +59,19 @@ export function IncidentMap() {
 
   return (
     <Card>
+      
       <CardHeader className="pb-2">
+        {haveTitle && (
         <CardTitle className="flex items-center justify-between">
           <span>Mapa de Incidentes</span>
           <Badge variant="outline" className="ml-2">
             En vivo
           </Badge>
         </CardTitle>
+        )}
         <CardDescription>Visualiza incidentes reportados en tu zona</CardDescription>
       </CardHeader>
+      
       <CardContent>
         {loading ? (
           <div className="h-[300px] w-full flex items-center justify-center bg-muted rounded-md">
