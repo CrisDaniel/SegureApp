@@ -141,7 +141,7 @@ export default function Page() {
             <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-8">
                 <Card>
                     <CardHeader>
-                        <CardTitle>Reportar Incidente</CardTitle>
+                        {/* <CardTitle>Reportar Incidente</CardTitle> */}
                         <CardDescription>
                             Reporta un incidente para que pueda ser atendido por los servicios correspondientes.
                         </CardDescription>

@@ -49,22 +49,22 @@ const data = {
     },
     {
       title: "Mapa de incidencias",
-      url: "#",
+      url: "/dashboard/incidents-map",
       icon: HomeIcon,
     },
     {
       title: "Reportar Incidencia",
-      url: "#",
+      url: "/dashboard/incident-report",
       icon: AlertCircleIcon,
     },
     {
       title: "Mis Reportes",
-      url: "#",
+      url: "/dashboard/my-reports",
       icon: ListIcon,
     },
     {
       title: "Contactos de emergencia",
-      url: "#",
+      url: "/dashboard/emergency-contacts",
       icon: UsersIcon,
     }
   ],

@@ -1,10 +1,10 @@
 import { IncidentMap } from "@/components/incident-map"
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { CalendarIcon } from "lucide-react"
@@ -12,11 +12,12 @@ import { CalendarIcon } from "lucide-react"
 export default function Page() {
     return (
         <div className="px-4 py-6">
-            <div className="flex justify-between mb-6">
-                <Input type="text" placeholder="Buscar incidente" />
-            </div>
+
             <div className="mb-6 space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 px-8">
+                <div className=" flex gap-4 ">
+                    <div className="grow">
+                        <Input type="text" placeholder="Buscar incidente" />
+                    </div>
                     {/* Tipo de Incidente */}
                     <div>
                         <Select>
@@ -62,7 +63,6 @@ export default function Page() {
 
                     {/* Fecha */}
                     <div className="flex flex-row items-center gap-2">
-                        <label className="block text-sm font-medium mb-1">Fecha</label>
                         <div className="relative">
                             <Input type="date" className="w-full pl-10" />
                             <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

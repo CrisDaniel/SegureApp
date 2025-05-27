@@ -7,7 +7,8 @@ const routeTitles: { [key: string]: string } = {
   '/dashboard': 'Mapa de Incidentes', // Título para la ruta Home (el mapa)
   '/dashboard/incidents-map': 'Mapa de Incidentes',
   '/dashboard/incident-report': 'Reportar Incidente',
-  '/dashboard/contactos-emergencia': 'Contactos de Emergencia',
+  '/dashboard/emergency-contacts': 'Contactos de Emergencia',
+  '/dashboard/my-reports': 'Mis Reportes',
   '/dashboard/configuracion': 'Configuración',
   '/dashboard/ayuda': 'Ayuda / Información',
   // Agrega aquí otras rutas si las tienes, por ejemplo, si creaste /dashboard/user
