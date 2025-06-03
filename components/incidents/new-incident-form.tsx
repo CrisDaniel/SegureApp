@@ -22,6 +22,7 @@ import { useState, useEffect, useRef } from "react"
 import { useSession } from "next-auth/react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription, DialogClose, DialogFooter } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
+import { toast } from "sonner"
 
 
 export default function NewIncidentForm() {
@@ -56,9 +57,11 @@ export default function NewIncidentForm() {
                 throw new Error("Error al enviar el reporte");
             }
             const result = await res.json();
+            toast.success("Reporte enviado exitosamente.")
             console.log(result);
         } catch (error) {
             console.error("Error al enviar el reporte:", error);
+            toast.error("Error al enviar el reporte.")
         }
     }
 
