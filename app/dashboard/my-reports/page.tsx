@@ -1,12 +1,25 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogDescription,
+  DialogClose,
+  DialogFooter
+} from "@/components/ui/dialog"
 import {
   AlertCircleIcon,
   FlameIcon,
   PhoneCallIcon,
   AlertTriangleIcon,
   CarIcon,
+  PlusIcon,
 } from "lucide-react";
+import Link from "next/link";
 
 const reports = [
   {
@@ -53,8 +66,16 @@ const reports = [
 
 export default function ReportsPage() {
   return (
-    <div className="report-page">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 px-8">
+    <div className="report-page container mx-auto px-6 flex flex-col gap-4">
+      <div className="flex justify-end">
+        <Link href="/dashboard/incident-report">
+          <Button type="button" className="">
+            <PlusIcon className="w-4 h-4 mr-2" />
+            Nuevo Reporte
+          </Button>
+        </Link>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {reports.map((report) => {
           const Icon = report.icon;
           return (
@@ -65,7 +86,7 @@ export default function ReportsPage() {
                     <Icon className="h-8 w-8 text-muted-foreground" />
                   </div>
                   <div>
-                    <div className="font-semibold text-lg">{report.type}</div>
+                    <div className="font-semibold text-md">{report.type}</div>
                     <div className="text-xs text-muted-foreground">{report.date}</div>
                   </div>
                 </div>
