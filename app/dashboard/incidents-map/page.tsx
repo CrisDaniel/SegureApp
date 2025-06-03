@@ -40,10 +40,10 @@ export default function Page() {
                                 <SelectValue placeholder="Rango de tiempo" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="pendiente">Pendiente</SelectItem>
-                                <SelectItem value="en_proceso">En Proceso</SelectItem>
-                                <SelectItem value="resuelto">Resuelto</SelectItem>
-                                <SelectItem value="cancelado">Cancelado</SelectItem>
+                                <SelectItem value="pendiente">Last 7 days</SelectItem>
+                                <SelectItem value="en_proceso">Last 30 days</SelectItem>
+                                <SelectItem value="resuelto">Last 60 days</SelectItem>
+                                <SelectItem value="cancelado">Last 90 days</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -53,10 +53,10 @@ export default function Page() {
                                 <SelectValue placeholder="Rango de visualización" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="pendiente">Pendiente</SelectItem>
-                                <SelectItem value="en_proceso">En Proceso</SelectItem>
-                                <SelectItem value="resuelto">Resuelto</SelectItem>
-                                <SelectItem value="cancelado">Cancelado</SelectItem>
+                                <SelectItem value="pendiente">1 km</SelectItem>
+                                <SelectItem value="en_proceso">5 km</SelectItem>
+                                <SelectItem value="resuelto">10 km</SelectItem>
+                                <SelectItem value="cancelado">20 km</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>

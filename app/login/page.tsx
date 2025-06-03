@@ -27,7 +27,7 @@ export default function LoginPage() {
   useEffect(() => {
     // Si el usuario ya está autenticado, redirigir a dashboard
     if (status === 'authenticated') {
-      router.push('/superadmin'); // O tu ruta deseada post-login
+      router.push('/dashboard'); // O tu ruta deseada post-login
     }
   }, [status, router]);
 
@@ -74,7 +74,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="flex items-center justify-center min-h-screen dark:bg-gray-900">
       <Card className="w-full max-w-sm">
         <form onSubmit={handleSubmit}>
           <CardHeader className="space-y-1">

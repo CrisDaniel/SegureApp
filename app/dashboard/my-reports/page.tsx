@@ -54,11 +54,11 @@ const reports = [
 export default function ReportsPage() {
   return (
     <div className="report-page">
-      <div className="flex gap-4 py-4 px-4 flex-wrap">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 px-8">
         {reports.map((report) => {
           const Icon = report.icon;
           return (
-            <Card key={report.id} className="flex flex-col w-64 min-w-64">
+            <Card key={report.id} className="flex flex-col w-full">
               <CardContent className="flex flex-col gap-2 p-4">
                 <div className="flex items-center gap-3">
                   <div className="bg-muted rounded-lg p-2">

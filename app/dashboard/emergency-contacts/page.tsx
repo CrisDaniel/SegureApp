@@ -46,7 +46,7 @@ const contacts = [
 
 export default function EmergencyContactsPage() {
   return (
-    <div className="flex gap-4 py-6 flex-wrap px-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-8">
       {contacts.map((contact) => (
         <Card key={contact.id} className="flex items-center px-4 py-3">
           <CardContent className="flex items-center w-full gap-4 p-0">

@@ -54,7 +54,7 @@ const data = [
 export default function Page() {
   return (
     <>
-      <SectionCards />
+      {/* <SectionCards /> */}
       <ChartAreaInteractive />
       <DataTable data={data} />
     </>

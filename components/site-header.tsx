@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 
 const routeTitles: { [key: string]: string } = {
-  '/dashboard': 'Mapa de Incidentes', // Título para la ruta Home (el mapa)
+  '/dashboard': 'Dashboard', // Título para la ruta Home (el mapa)
   '/dashboard/incidents-map': 'Mapa de Incidentes',
   '/dashboard/incident-report': 'Reportar Incidente',
   '/dashboard/emergency-contacts': 'Contactos de Emergencia',

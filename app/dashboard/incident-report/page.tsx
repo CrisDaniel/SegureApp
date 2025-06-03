@@ -138,7 +138,7 @@ export default function Page() {
 
     return (
         <div className="container mx-auto px-6">
-            <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-8">
+            <div className="max-w-4xl mx-auto rounded-lg shadow-sm p-8">
                 <Card>
                     <CardHeader>
                         {/* <CardTitle>Reportar Incidente</CardTitle> */}
