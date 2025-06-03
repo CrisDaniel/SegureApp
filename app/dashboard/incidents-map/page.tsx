@@ -11,7 +11,7 @@ import { CalendarIcon } from "lucide-react"
 
 export default function Page() {
     return (
-        <div className="px-4 py-6">
+        <div className="px-4 py-6 h-full flex flex-col">
 
             <div className="mb-6 space-y-4">
                 <div className=" flex gap-4 ">
@@ -70,8 +70,10 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-
+            <div className="mapa grow">
             <IncidentMap haveTitle={false} />
+            </div>
+
         </div>
     )
 }

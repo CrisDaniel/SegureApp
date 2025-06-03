@@ -40,3 +40,43 @@ export async function POST(request: Request) {
     }
     
 }
+
+export async function GET() {
+
+    console.log("Incident GET function called jajajajjajajjajajaja");
+    try {
+      const BACKEND_URL = process.env.EXPRESS_BACKEND_URL || "http://localhost:3001";
+      const response = await fetch(`${BACKEND_URL}/api/v1/incidents`, {
+        method: 'GET',
+        headers: { "Content-Type": "application/json" },
+        // Opcional: Agrega cache control si es necesario
+        // cache: 'no-store' // Para deshabilitar caché
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error fetching incidents:", errorData);
+        return Response.json({ error: "Error fetching incidents" }, { status: 500 });
+      }
+  
+      const data = await response.json();
+      
+      // Opcional: Transforma los datos para que coincidan con el formato que espera tu frontend
+      const formattedIncidents = data.map((incident: any) => ({
+        id: incident.id,
+        type: incident.type, // Ajusta según tu modelo de datos
+        lat: incident.latitude,
+        lng: incident.longitude,
+        description: incident.description,
+        time: new Date(incident.createdAt).toLocaleTimeString(), // Formatea la fecha como prefieras
+      }));
+  
+      return Response.json(formattedIncidents, { status: 200 });
+    } catch (error) {
+      console.error("Error fetching incidents:", error);
+      return Response.json(
+        { error: "Error fetching incidents" },
+        { status: 500 }
+      );
+    }
+}

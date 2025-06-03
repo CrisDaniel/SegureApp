@@ -61,6 +61,8 @@ export const Map: React.FC<IncidentsMapProps> = ({
   zoom = 13,
   setLocation // Valor por defecto para el zoom
 }) => {
+
+  console.log("Los inicidetes son", incidents)
   
   return (
     // MapContainer es el componente que inicializa el mapa
