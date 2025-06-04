@@ -8,72 +8,14 @@ import {
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { CalendarIcon } from "lucide-react"
+import FilterSheet from "@/components/filter-sheet"
 
 export default function Page() {
     return (
-        <div className="px-4 py-6 h-full flex flex-col">
-
-            <div className="mb-6 space-y-4">
-                <div className=" flex gap-4 ">
-                    <div className="grow">
-                        <Input type="text" placeholder="Buscar incidente" />
-                    </div>
-                    {/* Tipo de Incidente */}
-                    <div>
-                        <Select>
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Tipo de Incidente" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="robo">Robo</SelectItem>
-                                <SelectItem value="accidente">Accidente de Tráfico</SelectItem>
-                                <SelectItem value="violencia">Violencia</SelectItem>
-                                <SelectItem value="emergencia">Emergencia Médica</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    {/* Estado */}
-                    <div>
-                        <Select>
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Rango de tiempo" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="pendiente">Last 7 days</SelectItem>
-                                <SelectItem value="en_proceso">Last 30 days</SelectItem>
-                                <SelectItem value="resuelto">Last 60 days</SelectItem>
-                                <SelectItem value="cancelado">Last 90 days</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                    <div>
-                        <Select>
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Rango de visualización" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="pendiente">1 km</SelectItem>
-                                <SelectItem value="en_proceso">5 km</SelectItem>
-                                <SelectItem value="resuelto">10 km</SelectItem>
-                                <SelectItem value="cancelado">20 km</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    {/* Fecha */}
-                    <div className="flex flex-row items-center gap-2">
-                        <div className="relative">
-                            <Input type="date" className="w-full pl-10" />
-                            <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div className="px-4 h-full flex flex-col">
             <div className="mapa grow">
-            <IncidentMap haveTitle={false} />
+                <IncidentMap haveTitle={false} />
             </div>
-
         </div>
     )
 }

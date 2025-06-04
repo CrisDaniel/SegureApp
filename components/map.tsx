@@ -70,7 +70,7 @@ export const Map: React.FC<IncidentsMapProps> = ({
       center={initialPosition} // Centro inicial del mapa [lat, lng]
       zoom={zoom}             // Nivel de zoom inicial
       scrollWheelZoom={false} // Deshabilita zoom con scroll si prefieres
-      style={{ width: '100%', height: '100%' }}
+      style={{ width: '100%', height: '100%',zIndex: 1 }}
       // className="map-container" // Aplica la clase CSS definida globalmente para el tamaño
 
     >
