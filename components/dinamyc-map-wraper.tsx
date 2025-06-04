@@ -17,6 +17,7 @@ interface DynamicMapWrapperProps {
   }[]; // incidents es un array de objetos con esta estructura
   initialPosition?: [number, number];
   zoom?: number;
+  setLocation?: any;
 }
 
 
@@ -36,6 +37,7 @@ const DynamicMapWrapper: React.FC<DynamicMapWrapperProps> = ({
   incidents,
   initialPosition,
   zoom,
+  setLocation
 }) => {
   // Renderiza el componente de mapa dinámico, pasándole las props que recibió
   return (
@@ -43,6 +45,7 @@ const DynamicMapWrapper: React.FC<DynamicMapWrapperProps> = ({
       incidents={incidents}
       initialPosition={initialPosition}
       zoom={zoom}
+      setLocation={setLocation}
     />
   );
 };

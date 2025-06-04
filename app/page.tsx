@@ -37,14 +37,14 @@ export default function Home() {
   return (
     <div className="container mx-auto px-4 py-6">
       <header className="mb-6">
-        <h1 className="text-3xl font-bold">Seguridad Ciudadana</h1>
+        <h1 className="text-3xl font-bold">Secure App</h1>
         <p className="text-muted-foreground">Juntos por una comunidad más segura</p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2">
           <div className="mb-4">
-            <IncidentMap />
+            <IncidentMap haveTitle={true}/>
             {/* <DynamicMapWrapper incidents={incidents} initialPosition={tingoMariaPosition} /> */}
           </div>
 

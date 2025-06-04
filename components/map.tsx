@@ -1,7 +1,7 @@
 // components/IncidentsMap.tsx
 "use client"; 
-import React from 'react'; // Aunque no siempre es necesario importar React explícitamente en React 17+ JSX, es buena práctica en archivos TSX
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React , { useRef, useState } from 'react'; // Aunque no siempre es necesario importar React explícitamente en React 17+ JSX, es buena práctica en archivos TSX
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css'; // Importa los estilos CSS de Leaflet
 
 // Importa L desde leaflet para poder usar sus funcionalidades, como el fix del ícono
@@ -25,6 +25,7 @@ interface IncidentsMapProps {
   incidents?: Incident[]; // Array de objetos Incident, opcional con valor por defecto
   initialPosition?: [number, number]; // Tupla de [lat, lng] para la posición inicial, opcional con valor por defecto
   zoom?: number; // Nivel de zoom inicial, opcional con valor por defecto
+  setLocation?: any;
 }
 
 // --- FIX para el ícono predeterminado de Leaflet en Webpack/Next.js ---
@@ -38,21 +39,40 @@ L.Icon.Default.mergeOptions({
 });
 // --- FIN del FIX ---
 
+const MapEvents = ({setLocation}: {setLocation: any}) => {
+  const map = useMapEvents({
+    click: (e) => {
+      // i need when i click on the map this event capture the position of the click
+      setLocation({lat: e.latlng.lat, lng: e.latlng.lng})
+    },
+    zoomend: () => {
+      console.log("zoomend de prueba")
+    },
+    // Add more event listeners as needed (e.g., dragend, moveend)
+  });
+  return null; // No renderiza nada, solo maneja eventos
+};
+
 
 // Define el componente funcional, tipando sus props
 export const Map: React.FC<IncidentsMapProps> = ({
   incidents = [], // Valor por defecto para si no se pasa incidents
   initialPosition = [-12.046374, -77.042793], // Valor por defecto para la posición
-  zoom = 13, // Valor por defecto para el zoom
+  zoom = 13,
+  setLocation // Valor por defecto para el zoom
 }) => {
 
+  console.log("Los inicidetes son", incidents)
+  
   return (
     // MapContainer es el componente que inicializa el mapa
     <MapContainer
       center={initialPosition} // Centro inicial del mapa [lat, lng]
       zoom={zoom}             // Nivel de zoom inicial
       scrollWheelZoom={false} // Deshabilita zoom con scroll si prefieres
-      className="map-container" // Aplica la clase CSS definida globalmente para el tamaño
+      style={{ width: '100%', height: '100%',zIndex: 1 }}
+      // className="map-container" // Aplica la clase CSS definida globalmente para el tamaño
+
     >
       {/* TileLayer agrega la capa base del mapa (los "tiles" o imágenes del mapa) */}
       <TileLayer
@@ -77,6 +97,9 @@ export const Map: React.FC<IncidentsMapProps> = ({
           </Popup>
         </Marker>
       ))}
+      {setLocation && (
+      <MapEvents setLocation={setLocation}/>
+      )}
     </MapContainer>
   );
 };
