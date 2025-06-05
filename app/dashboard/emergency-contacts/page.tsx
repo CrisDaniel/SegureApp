@@ -29,14 +29,14 @@ const contacts = [
     avatar: "🧑‍🦲",
   },
   {
-    id: 2,
+    id: 4,
     name: "Luis Gamarra",
     phone: "+51 912 345 678",
     notify: false,
     avatar: "🧑‍🦱",
   },
   {
-    id: 3,
+    id: 5,
     name: "Remy Guerrero",
     phone: "+51 900 111 222",
     notify: true,
