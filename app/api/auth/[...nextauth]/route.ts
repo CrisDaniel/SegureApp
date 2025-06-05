@@ -85,6 +85,13 @@ export const authOptions: NextAuthOptions = {
     // signOut: '/auth/signout', // Puedes definir una página de cierre de sesión personalizada
     // error: '/auth/error', // Página para mostrar errores (ej. credenciales incorrectas)
   },
+  session:{
+    strategy: 'jwt',
+    maxAge: 60 * 60
+  },
+  jwt:{
+    maxAge: 60 * 60
+  },
   // Es MUY IMPORTANTE añadir un NEXTAUTH_SECRET en tus variables de entorno
   // Idealmente, esto debería ser una cadena larga y aleatoria.
   // NO LO HARDCODEES DIRECTAMENTE AQUÍ EN PRODUCCIÓN.
