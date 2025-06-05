@@ -72,6 +72,7 @@ export default function RegisterPage() {
           name,
           email,
           password,
+          role: 'USER'
         }),
         headers: { "Content-Type": "application/json" }
       });
