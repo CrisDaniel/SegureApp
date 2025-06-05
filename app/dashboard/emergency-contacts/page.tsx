@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 
 import { useSession } from "next-auth/react";
 
-const contacts = [
+const contactsTest = [
   {
     id: 1,
     name: "Ana Torres",
@@ -49,7 +49,8 @@ const contacts = [
 
 export default function EmergencyContactsPage() {
   const { data: session, status } = useSession();
-  const [contactsList, setContactsList] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (status === 'loading') return;
@@ -74,7 +75,8 @@ export default function EmergencyContactsPage() {
         }
 
         const data = await response.json();
-        setContactsList(data);
+        setContacts(data);
+        setLoading(false);
       } catch (error) {
         console.error("Error al cargar contactos:", error);
       }
@@ -83,35 +85,41 @@ export default function EmergencyContactsPage() {
     fetchContacts();
   }, [session, status]); // Añadimos status a las dependencias
 
-return (
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-8">
-    {contactsList.map((contact: any) => (
-      <Card key={contact.id} className="flex items-center px-4 py-3">
-        <CardContent className="flex items-center w-full gap-4 p-0">
-          <Avatar>
-            <AvatarFallback>{contact.avatar}</AvatarFallback>
-          </Avatar>
-          <div className="flex-1">
-            <div className="font-medium text-lg">
-              {contact.name || <span className="text-muted-foreground">Sin nombre</span>}
-            </div>
-            <div className="text-muted-foreground">{contact.phone}</div>
-          </div>
-          <div className="flex items-center gap-2">
-            <Checkbox checked={contact.notify} disabled />
-            <span className="text-sm text-muted-foreground">Notif.</span>
-          </div>
-          <div className="flex items-center gap-2 ml-4">
-            <Button size="icon" variant="ghost">
-              <PencilIcon />
-            </Button>
-            <Button size="icon" variant="ghost">
-              <Trash2Icon />
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    ))}
-  </div>
-);
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-8">
+      {loading ? (
+        <div className="flex items-center justify-center">
+          cargando...
+        </div>
+      ) : 
+        contacts.map((contact: any) => (
+          <Card key={contact.id} className="flex items-center px-4 py-3">
+            <CardContent className="flex items-center w-full gap-4 p-0">
+              <Avatar>
+                <AvatarFallback>{contact.avatar}</AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <div className="font-medium text-lg">
+                  {contact.name || <span className="text-muted-foreground">Sin nombre</span>}
+                </div>
+                <div className="text-muted-foreground">{contact.phone}</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Checkbox checked={contact.notify} disabled />
+                <span className="text-sm text-muted-foreground">Notif.</span>
+              </div>
+              <div className="flex items-center gap-2 ml-4">
+                <Button size="icon" variant="ghost">
+                  <PencilIcon />
+                </Button>
+                <Button size="icon" variant="ghost">
+                  <Trash2Icon />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))
+      }
+    </div>
+  )
 }
