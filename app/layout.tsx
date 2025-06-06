@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css';
 import { NextAuthProvider } from "./providers"; // Ajusta la ruta si es necesario
 import { Toaster } from "@/components/ui/sonner"
+import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
   title: "SegureApp", // O tu título preferido
@@ -16,10 +17,12 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
-        <NextAuthProvider>
-          {children}
-        </NextAuthProvider>
-        <Toaster position="top-right" />
+        <ThemeProvider attribute="class">
+          <NextAuthProvider>
+            {children}
+          </NextAuthProvider>
+          <Toaster position="top-right" />
+        </ThemeProvider>
       </body>
     </html>
   )
