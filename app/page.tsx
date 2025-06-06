@@ -5,6 +5,7 @@ import { AlertsList } from "@/components/alerts-list"
 import { ReportIncident } from "@/components/report-incident"
 import { AnonymousReport } from "@/components/anonymous-report"
 import DynamicMapWrapper from "@/components/dinamyc-map-wraper";
+import { redirect } from "next/navigation";
 
 export default function Home() {
   const incidents = [
@@ -34,44 +35,45 @@ export default function Home() {
     },
   ]
   const tingoMariaPosition: [number, number] = [-9.2970, -76.0079];
-  return (
-    <div className="container mx-auto px-4 py-6">
-      <header className="mb-6">
-        <h1 className="text-3xl font-bold">Secure App</h1>
-        <p className="text-muted-foreground">Juntos por una comunidad más segura</p>
-      </header>
+  redirect("/dashboard");
+  // return (
+  //   <div className="container mx-auto px-4 py-6">
+  //     <header className="mb-6">
+  //       <h1 className="text-3xl font-bold">Secure App</h1>
+  //       <p className="text-muted-foreground">Juntos por una comunidad más segura</p>
+  //     </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-2">
-          <div className="mb-4">
-            <IncidentMap haveTitle={true}/>
-            {/* <DynamicMapWrapper incidents={incidents} initialPosition={tingoMariaPosition} /> */}
-          </div>
+  //     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+  //       <div className="md:col-span-2">
+  //         <div className="mb-4">
+  //           <IncidentMap haveTitle={true}/>
+  //           {/* <DynamicMapWrapper incidents={incidents} initialPosition={tingoMariaPosition} /> */}
+  //         </div>
 
-          <div className="mb-4">
-            <PanicButton />
-          </div>
-        </div>
+  //         <div className="mb-4">
+  //           <PanicButton />
+  //         </div>
+  //       </div>
 
-        <div className="space-y-4">
-          <Tabs defaultValue="alerts" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="alerts">Alertas</TabsTrigger>
-              <TabsTrigger value="report">Reportar</TabsTrigger>
-              <TabsTrigger value="anonymous">Anónimo</TabsTrigger>
-            </TabsList>
-            <TabsContent value="alerts">
-              <AlertsList />
-            </TabsContent>
-            <TabsContent value="report">
-              <ReportIncident />
-            </TabsContent>
-            <TabsContent value="anonymous">
-              <AnonymousReport />
-            </TabsContent>
-          </Tabs>
-        </div>
-      </div>
-    </div>
-  )
+  //       <div className="space-y-4">
+  //         <Tabs defaultValue="alerts" className="w-full">
+  //           <TabsList className="grid w-full grid-cols-3">
+  //             <TabsTrigger value="alerts">Alertas</TabsTrigger>
+  //             <TabsTrigger value="report">Reportar</TabsTrigger>
+  //             <TabsTrigger value="anonymous">Anónimo</TabsTrigger>
+  //           </TabsList>
+  //           <TabsContent value="alerts">
+  //             <AlertsList />
+  //           </TabsContent>
+  //           <TabsContent value="report">
+  //             <ReportIncident />
+  //           </TabsContent>
+  //           <TabsContent value="anonymous">
+  //             <AnonymousReport />
+  //           </TabsContent>
+  //         </Tabs>
+  //       </div>
+  //     </div>
+  //   </div>
+  // )
 }
