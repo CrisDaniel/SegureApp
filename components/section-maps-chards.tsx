@@ -30,7 +30,7 @@ import DynamicMapWrapper from "./dinamyc-map-wraper"
 
 export function SectionMapsChards() {
     const incidents: any[] = [];
-    const tingoMariaPosition: [number, number] = [-16.4292, -68.1365];
+    const tingoMariaPosition: [number, number] = [-12.0464,-77.0428];
     return (
         <div className="*:data-[slot=card]:shadow-xs xl:grid-cols-2 min-[1920px]:grid-cols-4 grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card lg:px-6">
             <Card>

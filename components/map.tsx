@@ -1,11 +1,11 @@
 // components/IncidentsMap.tsx
 "use client"; 
-import React , { useRef, useState } from 'react'; // Aunque no siempre es necesario importar React explícitamente en React 17+ JSX, es buena práctica en archivos TSX
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import React , { useEffect, useRef, useState } from 'react'; // Aunque no siempre es necesario importar React explícitamente en React 17+ JSX, es buena práctica en archivos TSX
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css'; // Importa los estilos CSS de Leaflet
 
 // Importa L desde leaflet para poder usar sus funcionalidades, como el fix del ícono
-import L from 'leaflet';
+import L , {LatLng} from 'leaflet';
 
 // --- Definición de Tipos ---
 
@@ -53,26 +53,52 @@ const MapEvents = ({setLocation}: {setLocation: any}) => {
   return null; // No renderiza nada, solo maneja eventos
 };
 
+function LocationMaker(){
+  const [position, setPosition] = useState<LatLng | null>(null);
+  const [bbox,setBbox] = useState<string[]>([]);
+  const map = useMap();
+
+  useEffect(()=>{
+    map.locate().on('locationfound',function (e){
+      setPosition(e.latlng)
+      map.flyTo(e.latlng, map.getZoom())
+      const radius = e.accuracy;
+      const circle = L.circle(e.latlng, {radius})
+      circle.addTo(map)
+      setBbox(e.bounds.toBBoxString().split(","));
+    })
+    .on('locationerror', function (e){
+      alert(e.message)
+      console.error("Error al obtener la ubicación", e)
+    });
+  },[map])
+
+  return position === null ? null : (
+    <Marker position={position}>
+      <Popup>
+        <p>Mi ubicación</p>
+      </Popup>
+    </Marker>
+  )
+}
 
 // Define el componente funcional, tipando sus props
 export const Map: React.FC<IncidentsMapProps> = ({
   incidents = [], // Valor por defecto para si no se pasa incidents
   initialPosition = [-12.046374, -77.042793], // Valor por defecto para la posición
-  zoom = 13,
+  zoom = 15,
   setLocation // Valor por defecto para el zoom
 }) => {
 
   console.log("Los inicidetes son", incidents)
   
   return (
-    // MapContainer es el componente que inicializa el mapa
     <MapContainer
       center={initialPosition} // Centro inicial del mapa [lat, lng]
       zoom={zoom}             // Nivel de zoom inicial
       scrollWheelZoom={false} // Deshabilita zoom con scroll si prefieres
       style={{ width: '100%', height: '100%',zIndex: 1 ,borderRadius: '.5rem'}}
       className="map-container"
-      // className="map-container" // Aplica la clase CSS definida globalmente para el tamaño
 
     >
       {/* TileLayer agrega la capa base del mapa (los "tiles" o imágenes del mapa) */}
@@ -80,11 +106,10 @@ export const Map: React.FC<IncidentsMapProps> = ({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" // URL de OpenStreetMap
       />
+      <LocationMaker/>
 
       {/* Mapeamos sobre el array de incidencias para crear un marcador por cada una */}
       {incidents.map(incident => (
-        // TypeScript ahora sabe que 'incident' es del tipo 'Incident',
-        // y autocompletará 'incident.lat', 'incident.lng', etc.
         <Marker
           key={incident.id} // Usar una key única es importante para React
           position={[incident.lat, incident.lng]} // Posición del marcador [lat, lng]
