@@ -102,7 +102,7 @@ export default function RegisterPage() {
         // o puedes redirigir directamente aquí si lo prefieres:
         // router.push('/superadmin'); 
         console.log("redirigiendo...")
-        router.push('/superadmin');
+        router.push('/dashboard');
       } else {
         // Caso inesperado donde no hay error pero tampoco ok
          console.log("Ocurrió un error inesperado. Por favor, inténtalo de nuevo.");
