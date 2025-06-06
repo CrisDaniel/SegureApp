@@ -34,9 +34,9 @@ export default function RegisterPage() {
   useEffect(() => {
     // Si el usuario ya está autenticado, redirigir a dashboard
     if (status === 'authenticated') {
-      router.push('/superadmin'); // O tu ruta deseada post-login
+      router.push('/dashboard'); // O tu ruta deseada post-login
     }
-  }, [status, router]);
+  }, []);
   // funcion para manejar la entrada de email
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let actualEmail = e.target.value;
