@@ -67,14 +67,14 @@ export default function LoginPage() {
   // No renderizar nada o un loader mientras se verifica el estado de la sesión
   if (status === 'loading' || status === 'authenticated') {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+      <div className="flex items-center justify-center min-h-screen">
         <p>Cargando</p> {/* O un spinner/componente de carga */}
       </div>
     );
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen dark:bg-gray-900">
+    <div className="flex items-center justify-center min-h-screen">
       <Card className="w-full max-w-sm">
         <form onSubmit={handleSubmit}>
           <CardHeader className="space-y-1">

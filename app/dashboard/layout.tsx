@@ -7,8 +7,8 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 
 export default function Page({ children }: { children: React.ReactNode }) {
   return (
-    <SidebarProvider>
-      <AppSidebar variant="inset" className="bg-[#e8e7e1] sidebar-web"/>
+    <SidebarProvider className="sidebar-web">
+      <AppSidebar variant="inset" className=""/>
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col">
