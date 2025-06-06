@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Loader2Icon,UserCheckIcon,UserXIcon ,UserSearchIcon} from "lucide-react"
+import { Loader2Icon, UserCheckIcon, UserXIcon, UserSearchIcon } from "lucide-react"
 import {
   Sheet,
   SheetClose,
@@ -66,12 +66,12 @@ export default function EmergencyContactsPage() {
 
     fetchContacts();
   }, [status]); // Añadimos status a las dependencias
-  
-  const searchUser = async ()=>{
+
+  const searchUser = async () => {
     if (!email) return;
 
     setSearchState("loading");
-    try{
+    try {
       const response = await fetch(`/api/user/?email=${email}`);
       if (!response.ok) {
         setSearchState("not-found");
@@ -88,20 +88,20 @@ export default function EmergencyContactsPage() {
 
   const addContact = async () => {
     if (!newContact) return;
-    try{
+    try {
       const response = await fetch("/api/emergency-contacts", {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${session?.accessToken}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({contactId: newContact.id})
+        body: JSON.stringify({ contactId: newContact.id })
       });
       if (!response.ok) {
         throw new Error("Error al agregar el contacto");
       }
       const data = await response.json();
-      setContacts([...contacts,data]);
+      setContacts([...contacts, data]);
       setNewContact(null);
       setEmail("");
       setSearchState("idle");
@@ -111,7 +111,7 @@ export default function EmergencyContactsPage() {
   }
 
   const renderSearchIcon = () => {
-    switch (searchState){
+    switch (searchState) {
       case 'loading':
         return <Loader2Icon className="animate-spin" />
       case 'found':
@@ -122,9 +122,9 @@ export default function EmergencyContactsPage() {
         return <UserSearchIcon />
     }
   }
-  
+
   return (
-    <div className="flex flex-col gap-4 px-8">
+    <div className="flex flex-col gap-4 px-8 min-h-[100%]">
       <div className="flex justify-end items-center">
         <Sheet>
           <SheetTrigger asChild>
@@ -146,15 +146,15 @@ export default function EmergencyContactsPage() {
                   <Label htmlFor="sheet-demo-username">Email</Label>
                 </div>
                 <div className="flex gap-3">
-                  <Input id="sheet-demo-username" 
-                  placeholder="peduarte@example.com" 
-                  onChange={(e)=>{
-                    setEmail(e.target.value)
-                    // if (searchState !== 'idle') setSearchState('idle');
-                  }} 
-                  value={email}/>
+                  <Input id="sheet-demo-username"
+                    placeholder="peduarte@example.com"
+                    onChange={(e) => {
+                      setEmail(e.target.value)
+                      // if (searchState !== 'idle') setSearchState('idle');
+                    }}
+                    value={email} />
                   <Button onClick={searchUser}>
-                      {renderSearchIcon()}
+                    {renderSearchIcon()}
                   </Button>
                 </div>
               </div>
@@ -172,41 +172,45 @@ export default function EmergencyContactsPage() {
           </SheetContent>
         </Sheet>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {loading ? (
-          <div className="flex items-center justify-center">
-            cargando...
-          </div>
-        ) :
-          contacts.map((contact: any) => (
-            <Card key={contact.id} className="flex items-center px-4 py-3">
-              <CardContent className="flex items-center w-full gap-4 p-0">
-                <Avatar>
-                  <AvatarFallback>{contact?.name?.charAt(0).toUpperCase()}</AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
-                  <div className="font-medium text-lg">
-                    {contact.name || <span className="text-muted-foreground">Sin nombre</span>}
-                  </div>
-                  <div className="text-muted-foreground">{contact.phone}</div>
+      {loading ? (
+        <div className="flex items-center justify-center h-full w-full">
+          cargando...
+        </div>
+      ) : <div className="">
+        {contacts.length === 0 ? <div>
+          <p className="text-muted-foreground">Aun no cuentas con contactos de emergencia, agrega uno</p>
+        </div>: 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">{contacts.map((contact: any) => (
+          <Card key={contact.id} className="flex items-center px-4 py-3">
+            <CardContent className="flex items-center w-full gap-4 p-0">
+              <Avatar>
+                <AvatarFallback>{contact?.name?.charAt(0).toUpperCase()}</AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <div className="font-medium text-lg">
+                  {contact.name || <span className="text-muted-foreground">Sin nombre</span>}
                 </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox checked={contact.notify} disabled />
-                  <span className="text-sm text-muted-foreground">Notif.</span>
-                </div>
-                <div className="flex items-center gap-2 ml-4">
-                  <Button size="icon" variant="ghost">
-                    <PencilIcon />
-                  </Button>
-                  <Button size="icon" variant="ghost">
-                    <Trash2Icon />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))
+                <div className="text-muted-foreground">{contact.phone}</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Checkbox checked={contact.notify} disabled />
+                <span className="text-sm text-muted-foreground">Notif.</span>
+              </div>
+              <div className="flex items-center gap-2 ml-4">
+                <Button size="icon" variant="ghost">
+                  <PencilIcon />
+                </Button>
+                <Button size="icon" variant="ghost">
+                  <Trash2Icon />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}</div>
         }
       </div>
+      }
+
     </div>
   )
 }

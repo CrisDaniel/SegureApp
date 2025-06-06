@@ -79,22 +79,6 @@ export function IncidentMap({ haveTitle }: { haveTitle: boolean }) {
 
   return (
     <Card className="card-mapa h-full flex flex-col">
-      <CardHeader className="pb-2 relative">
-        {haveTitle && (
-          <CardTitle className="flex items-center justify-between">
-            <span>Mapa de Incidentes</span>
-            <Badge variant="outline" className="ml-2">
-              En vivo
-            </Badge>
-          </CardTitle>
-        )}
-        <CardDescription>Visualiza incidentes reportados en tu zona</CardDescription>
-        <div className="absolute top-0 right-6">
-          <FilterSheet />
-        </div>
-      </CardHeader>
-
-      <CardContent className="contendido-mapa grow">
         {loading ? (
           <div className="h-full w-full flex items-center justify-center bg-muted rounded-md">
             <div className="text-center">
@@ -103,39 +87,31 @@ export function IncidentMap({ haveTitle }: { haveTitle: boolean }) {
             </div>
           </div>
         ) : (
-          <div className="h-full w-full bg-slate-100 rounded-md overflow-hidden">
+          <div className="h-full w-full bg-slate-100 rounded-md overflow-hidden relative">
             {/* Aquí iría la integración real con Mapbox o Google Maps */}
 
             <DynamicMapWrapper incidents={incidents} initialPosition={tingoMariaPosition} />
 
-
-            {/* Marcador de usuario */}
-
-
-            {/* Marcadores de incidentes */}
-
-
-            {/* Controles del mapa */}
-
-
             {/* Leyenda */}
-            <div className="absolute bottom-2 right-2 bg-white/80 p-2 rounded text-xs">
+            <div className="absolute bottom-2 right-2 bg-white/80 p-2 rounded text-xs z-10">
               <div className="flex items-center gap-1 mb-1">
                 <div className="h-2 w-2 bg-red-500 rounded-full"></div>
-                <span>Robo</span>
+                <span className="text-black">Robo</span>
               </div>
               <div className="flex items-center gap-1 mb-1">
                 <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
-                <span>Sospechoso</span>
+                <span className="text-black">Sospechoso</span>
               </div>
               <div className="flex items-center gap-1">
                 <div className="h-2 w-2 bg-purple-500 rounded-full"></div>
-                <span>Emergencia</span>
+                <span className="text-black">Emergencia</span>
               </div>
+            </div>
+            <div className="absolute top-2 right-2 z-10">
+              <FilterSheet />
             </div>
           </div>
         )}
-      </CardContent>
     </Card>
   )
 }
