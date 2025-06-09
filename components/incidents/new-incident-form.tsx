@@ -14,7 +14,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 
-import { MapPin, CameraIcon, VideoIcon, SendHorizonal, CalendarIcon } from "lucide-react"
+import { MapPin, CameraIcon, VideoIcon, SendHorizonal, CalendarIcon, XIcon } from "lucide-react"
 import Image from 'next/image'
 
 import DynamicMapWrapper from "@/components/dinamyc-map-wraper"
@@ -23,6 +23,7 @@ import { useSession } from "next-auth/react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription, DialogClose, DialogFooter } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
+import Preview from "@/components/preview"
 
 
 export default function NewIncidentForm() {
@@ -48,6 +49,10 @@ export default function NewIncidentForm() {
             userId: session?.user?.id,
         }
         try {
+            if(!ubicacion || !tipoIncidencia){
+                toast.error("Por favor, completa todos los campos.")
+                return
+            }
             const res = await fetch("/api/incident", {
                 method: "POST",
                 body: JSON.stringify(data),
@@ -98,6 +103,10 @@ export default function NewIncidentForm() {
         videoRef.current?.click()
     }
 
+    const handleDeletePreview = (index: number) => {
+        setPreviews((prev) => prev.filter((_, i) => i !== index))
+    }
+
     useEffect(() => {
         if (!ubicacion) {
             console.log("first render")
@@ -117,21 +126,20 @@ export default function NewIncidentForm() {
     }, [ubicacion])
 
     return (
-        <div className="max-w-4xl mx-auto rounded-lg shadow-sm">
+        <div className="rounded-lg shadow-sm">
             <Card>
                 <CardHeader>
-                    {/* <CardTitle>Reportar Incidente</CardTitle> */}
+                    <CardTitle>Reportar Incidente</CardTitle>
                     <CardDescription>
                         Reporta un incidente para que pueda ser atendido por los servicios correspondientes.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-1 gap-6">
-                        {/* Columna Izquierda */}
                         <div className="space-y-6">
                             {/* Tipo de Incidencia */}
                             <div>
-                                <label className="block text-sm font-medium mb-2">Tipo de Incidencia</label>
+                                <label className="block text-sm font-medium mb-2">Tipo de Incidencia <span className="text-red-500">*</span></label>
                                 <Select value={tipoIncidencia || ""} onValueChange={setTipoIncidencia}>
                                     <SelectTrigger className="w-full">
                                         <SelectValue placeholder="Selecciona el tipo de incidencia" />
@@ -145,15 +153,11 @@ export default function NewIncidentForm() {
                                 </Select>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium mb-2">Ubicación</label>
+                                <label className="block text-sm font-medium mb-2">Ubicación <span className="text-red-500">*</span></label>
                                 <div className="flex gap-2">
                                     <Input placeholder="Seleccionar ubicación" className="flex-1" value={direccion || ""} onChange={() => {
                                         console.log("test",)
                                     }} />
-                                    {/* <Button variant="outline" type="button">
-                                            <MapPin className="w-4 h-4 mr-2" />
-                                            Mapa
-                                        </Button> */}
                                     <Dialog>
                                         <DialogTrigger asChild>
                                             <Button variant="outline" type="button">
@@ -207,23 +211,14 @@ export default function NewIncidentForm() {
                                     <Input type="file" accept="video/*" className="hidden" ref={videoRef} onChange={handleFileChange} />
                                 </div>
                                 <div className="flex gap-4 py-4">
-                                    <div>
-                                        {previews.map((previewUrl, index) => (
-                                            <Image
-                                                key={index}
-                                                src={previewUrl}
-                                                alt={`preview-${index}`}
-                                                width={80}
-                                                height={80}
-
-                                            />
-                                        ))}
-                                    </div>
+                                    {previews.map((previewUrl, index) => (
+                                        <Preview key={index} previewUrl={previewUrl} index={index} onDelete={handleDeletePreview}/>
+                                    ))}
                                 </div>
                             </div>
                             <div>
                                 <label className="block text-sm font-medium mb-2">
-                                    Descripción<span className="text-muted-foreground text-xs ml-1">(Opcional)</span>
+                                    Descripción<span className="text-red-500 text-xs ml-1">*</span>
                                 </label>
                                 <Textarea
                                     placeholder="Agrega detalles adicionales..."
@@ -236,18 +231,6 @@ export default function NewIncidentForm() {
                                 <Checkbox id="anonimo" />
                                 <label htmlFor="anonimo" className="text-sm">Enviar como reporte anónimo</label>
                             </div>
-
-                        </div>
-
-                        {/* Columna Derecha */}
-                        <div className="space-y-6">
-                            {/* Descripción */}
-
-
-
-
-                            {/* Reporte Anónimo */}
-
                         </div>
                     </div>
                 </CardContent>
