@@ -21,6 +21,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { useSocket } from "@/hooks/useSocket"
 
 // type SearchState = 'idle','loading','success','error'
 type SearchState = 'idle' | 'loading' | 'found' | 'not-found';
@@ -33,6 +34,7 @@ export default function EmergencyContactsPage() {
   const [searchState, setSearchState] = useState<SearchState>("idle");
   const [email, setEmail] = useState("");
   const [newContact, setNewContact] = useState<any>(null);
+  const socket = useSocket();
 
   useEffect(() => {
     if (status === 'loading') return;
