@@ -29,6 +29,32 @@ export function NavMain({
             <SidebarMenuButton
               tooltip="Quick Create"
               className="min-w-8 bg-primary text-primary-foreground duration-200 ease-linear hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground"
+              onClick={async () => {
+                console.log("Boton de panico aquiiiiiii")
+                try {
+                  const response = await fetch('/api/panic-alert', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      timestamp: new Date().toISOString(),
+                      // Puedes agregar más datos relevantes aquí
+                    }),
+                  });
+
+                  if (!response.ok) {
+                    throw new Error('Error al enviar la alerta');
+                  }
+
+                  const data = await response.json();
+                  console.log('Alerta enviada:', data);
+                  // Aquí podrías mostrar una notificación al usuario
+                } catch (error) {
+                  console.error('Error:', error);
+                  // Aquí podrías mostrar un mensaje de error al usuario
+                }
+              }}
             >
               <PlusCircleIcon />
               <span>Boton de panico</span>
